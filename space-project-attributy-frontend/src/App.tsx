@@ -13,8 +13,8 @@ function App() {
       <Header />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path='/missiondetails' element={<MissionDetails />} />
+        <Route path="/missions" element={<Home />} />
+        <Route path='/missions/:id' element={<MissionDetails />} />
       </Routes>
 
     </div>

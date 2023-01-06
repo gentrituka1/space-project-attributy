@@ -5,9 +5,10 @@ export function getDate(date: string){
     const day = dateObj.getDate();
     const hours = dateObj.getHours();
     const minutes = dateObj.getMinutes();
-    const seconds = dateObj.getSeconds();
-    if(seconds < 10 && minutes < 10 && hours < 10 && day < 10 && month < 10) return `0${day}/0${month}/${year} 0${hours}:0${minutes}:0${seconds}`;
-    
-    const time = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    if(month < 10) return `${day}/0${month}/${year} ${hours}:${minutes}`;
+    if(day < 10) return `0${day}/${month}/${year} ${hours}:${minutes}`;
+    if(hours < 10) return `${day}/${month}/${year} 0${hours}:${minutes}`;
+    if(minutes < 10) return `${day}/${month}/${year} ${hours}:0${minutes}`;
+    const time = `${day}/${month}/${year} ${hours}:${minutes}`;
     return time;
 }

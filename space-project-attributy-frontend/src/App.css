@@ -22,5 +22,34 @@ main{
 main .main-mission-list{
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
+    list-style: none;
+}
+
+main .main-mission-list .main-mission-list-item{
+    border: 1px solid grey;
+    padding: 20px;
+    display: grid;
+    align-content: space-between;
+    transition: all 0.2s ease-in-out;
+}
+
+.main-mission-list-item:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.mission-image{
+    justify-self: center;
+}
+
+.mission-name{
+    font-size: 1.5rem;
+    color: grey;
+    justify-self: center;
+}
+
+.no-description{
+    color: red;
+    font-size: 1.2rem;
 }

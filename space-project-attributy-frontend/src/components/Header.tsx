@@ -6,7 +6,7 @@ function Header() {
     <header>
         <img src='../src/assets/spacex.svg' width={350}/>
         <div className='route-names'>
-            <NavLink className="route-names-item" to='/home'>Home</NavLink>
+            <NavLink className="route-names-item" to='/missions'>Home</NavLink>
         </div>
     </header>
   )
