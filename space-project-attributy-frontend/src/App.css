@@ -14,3 +14,13 @@ header{
     color: royalblue;
     font-weight: bold;
 }
+
+main{
+    padding: 20px;
+}
+
+main .main-mission-list{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
