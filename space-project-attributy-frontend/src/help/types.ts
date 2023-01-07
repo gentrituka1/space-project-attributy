@@ -1,4 +1,4 @@
-export type Mission = [
+export type Mission = {
     flight_number: number,
     mission_name: string,
     mission_id: string[],
@@ -72,4 +72,10 @@ export type Mission = [
             ship: string
         }
     },
-]
+}
+
+export type Comment = {
+    id: number,
+    content: string,
+    missionId: number
+}

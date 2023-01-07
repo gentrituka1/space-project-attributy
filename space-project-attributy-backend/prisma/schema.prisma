@@ -10,16 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Mission{
-  id        Int      @id @default(autoincrement())
-  title     String
-  content   String
-  comments  Comment[]
-}
-
 model Comment {
   id        Int      @id @default(autoincrement())
   content   String
   missionId Int
-  mission   Mission  @relation(fields: [missionId], references: [id])
 }

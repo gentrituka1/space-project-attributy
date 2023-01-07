@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getDate } from "../help/funcs";
-import { Mission } from "../help/types";
+import { Mission, Comment } from "../help/types";
 import "./MissionDetails.css";
 
 export default function MissionDetails() {
   const [mission, setMission] = useState<Mission | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
 
   const params = useParams();
 
@@ -16,6 +17,14 @@ export default function MissionDetails() {
         setMission(data);
       });
   }, []);
+
+  useEffect(() => {
+    fetch(`https://localhost:4000/comments/${mission?.flight_number}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setComments(data);
+      });
+  }, [])
 
   if (mission === null) {
     return <div>Loading...</div>;
@@ -60,7 +69,53 @@ export default function MissionDetails() {
         </div>
       </section>
       <aside className="comments-section">
-          <h2>Comments</h2>
+        <h2 style={{color: "red"}}><u>Comments</u></h2>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            fetch(`https://localhost:4000/comments`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                content: e.target.content.value,
+                missionId: mission.flight_number,
+                comments: []
+              }),
+            }).then((res) => res.json())
+            .then((data) => {
+              if(data.error) {
+                alert(data.error)
+              } else {
+                alert('Comment posted!')
+              }
+            })
+
+            e.target.reset();
+
+          }}
+        >
+          <h2>Leave a Comment</h2>
+          <label>
+            Comment:
+            <textarea
+              name="content"
+              id="content"
+              placeholder="Leave a comment here"
+              required
+              rows={5}
+            ></textarea>
+          </label>
+          <button>Post</button>
+        </form>
+        <div>
+          {comments.map((comment) => (
+            <div className="comment">
+              <p>{comment.content}</p>
+            </div>
+          ))}
+        </div>
       </aside>
     </>
   );
