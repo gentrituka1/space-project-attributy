@@ -1,10 +1,10 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 function Header() {
   return (
     <header>
-        <img src='../src/assets/spacex.svg' width={350}/>
+        <Link to="/missions"><img src='../src/assets/spacex.svg' width={350}/></Link>
         <div className='route-names'>
             <NavLink className="route-names-item" to='/missions'>Home</NavLink>
         </div>

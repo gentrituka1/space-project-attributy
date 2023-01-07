@@ -36,6 +36,7 @@ main .main-mission-list .main-mission-list-item{
 
 .main-mission-list-item:hover{
     transform: scale(1.05);
+    background-color: lightgrey;
     cursor: pointer;
 }
 
@@ -52,4 +53,9 @@ main .main-mission-list .main-mission-list-item{
 .no-description{
     color: red;
     font-size: 1.2rem;
+}
+
+.mission-links{
+    text-decoration: none;
+    color: black;
 }
