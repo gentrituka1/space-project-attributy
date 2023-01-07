@@ -67,10 +67,9 @@ export default function MissionDetails() {
             <button className="back-button">Back</button>
           </Link>
         </div>
-      </section>
-      <aside className="comments-section">
-        <h2 style={{color: "red"}}><u>Comments</u></h2>
+        <aside className="comments-section">
         <form
+          className="comment-form"
           onSubmit={(e) => {
             e.preventDefault();
             fetch(`http://localhost:4000/comments`, {
@@ -97,11 +96,11 @@ export default function MissionDetails() {
         >
           <h2>Leave a Comment</h2>
           <label>
-            Comment:
+            Comment section:
             <textarea
               name="content"
               id="content"
-              placeholder="Leave a comment here"
+              placeholder="Leave a comment here..."
               required
               rows={5}
             ></textarea>
@@ -109,13 +108,26 @@ export default function MissionDetails() {
           <button>Post</button>
         </form>
         <div>
-          {comments.filter((comment) => comment.missionId === mission.flight_number).map((comment) => (
-            <div className="comment" key={comment.id}>
+          {comments.filter((comment) => comment.missionId === mission.flight_number).reverse().map((comment) => (
+            <div className="posted-comments" key={comment.id}>
               <p>{comment.content}</p>
+              <p className="delete-button" onClick={() => {
+                fetch(`http://localhost:4000/comments/${comment.id}`, {
+                  method: "DELETE"
+                }).then(() => {
+                  fetch(`http://localhost:4000/comments/`)
+                  .then((res) => res.json())
+                  .then((data) => {
+                    setComments(data);
+                  })
+                })
+              }}>❌</p>
             </div>
           ))}
         </div>
       </aside>
+      </section>
+      
     </>
   );
 }

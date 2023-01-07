@@ -46,6 +46,16 @@ app.post("/comments", async (req, res) => {
 }
 });
 
+app.delete("/comments/:id", async (req, res) => {
+  const id = Number(req.params.id);
+  const comment = await prisma.comment.delete({
+    where: {
+      id,
+    },
+  });
+  res.send(comment);
+})
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
