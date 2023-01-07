@@ -14,17 +14,6 @@ app.use(express.json());
 
 // comments section
 
-app.post("/comments", async (req, res) => {
-  const { missionId, content } = req.body;
-  const newComment = await prisma.comment.create({
-    data: {
-    content,
-      missionId: Number(missionId),
-      
-    },
-  });
-  res.send(newComment);
-});
 
 app.get("/comments", async (req, res) => {
   const comments = await prisma.comment.findMany();
@@ -40,6 +29,23 @@ app.get("/comments/:missionId", (req, res) => {
   });
   res.send(comments);
 });
+
+app.post("/comments", async (req, res) => {
+  try{
+  const { missionId, content } = req.body;
+  const newComment = await prisma.comment.create({
+    data: {
+      content,
+      missionId: Number(missionId),
+    },
+  });
+  res.send(newComment);
+} catch (error) {
+  //@ts-ignore
+  res.status(400).send({ error: error.message })
+}
+});
+
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

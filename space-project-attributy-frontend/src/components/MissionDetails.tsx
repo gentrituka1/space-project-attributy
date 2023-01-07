@@ -19,7 +19,7 @@ export default function MissionDetails() {
   }, []);
 
   useEffect(() => {
-    fetch(`https://localhost:4000/comments/${mission?.flight_number}`)
+    fetch(`http://localhost:4000/comments/`)
       .then((res) => res.json())
       .then((data) => {
         setComments(data);
@@ -73,24 +73,23 @@ export default function MissionDetails() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            fetch(`https://localhost:4000/comments`, {
+            fetch(`http://localhost:4000/comments`, {
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
               },
               body: JSON.stringify({
                 content: e.target.content.value,
-                missionId: mission.flight_number,
-                comments: []
+                missionId: mission.flight_number
               }),
             }).then((res) => res.json())
-            .then((data) => {
-              if(data.error) {
-                alert(data.error)
-              } else {
-                alert('Comment posted!')
-              }
-            })
+                .then(() =>
+                  fetch(`http://localhost:4000/comments/`)
+                .then((res) => res.json())
+                .then((data) => {
+                  setComments(data);
+                })
+                )
 
             e.target.reset();
 
@@ -110,8 +109,8 @@ export default function MissionDetails() {
           <button>Post</button>
         </form>
         <div>
-          {comments.map((comment) => (
-            <div className="comment">
+          {comments.filter((comment) => comment.missionId === mission.flight_number).map((comment) => (
+            <div className="comment" key={comment.id}>
               <p>{comment.content}</p>
             </div>
           ))}
