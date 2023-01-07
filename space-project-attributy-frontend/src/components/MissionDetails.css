@@ -79,6 +79,7 @@
     font-weight: bold;
     border: none;
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .comment-form #content {

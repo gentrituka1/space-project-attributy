@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getDate } from "../help/funcs";
-import { Mission, Comment } from "../help/types";
+import { getDate } from "../utils/funcs";
+import { Mission, Comment } from "../utils/types";
 import "./MissionDetails.css";
 
 export default function MissionDetails() {
@@ -24,10 +24,22 @@ export default function MissionDetails() {
       .then((data) => {
         setComments(data);
       });
-  }, [])
+  }, []);
 
   if (mission === null) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "grid",
+          placeItems: "center",
+          fontSize: "100px",
+          color: "crimson",
+        }}
+      >
+        Loading...
+      </div>
+    );
   }
 
   return (
@@ -68,66 +80,73 @@ export default function MissionDetails() {
           </Link>
         </div>
         <aside className="comments-section">
-        <form
-          className="comment-form"
-          onSubmit={(e) => {
-            e.preventDefault();
-            fetch(`http://localhost:4000/comments`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                content: e.target.content.value,
-                missionId: mission.flight_number
-              }),
-            }).then((res) => res.json())
+          <form
+            className="comment-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetch(`http://localhost:4000/comments`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  content: e.target.content.value,
+                  missionId: mission.flight_number,
+                }),
+              })
+                .then((res) => res.json())
                 .then(() =>
                   fetch(`http://localhost:4000/comments/`)
-                .then((res) => res.json())
-                .then((data) => {
-                  setComments(data);
-                })
-                )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      setComments(data);
+                    })
+                );
 
-            e.target.reset();
-
-          }}
-        >
-          <h2>Leave a Comment</h2>
-          <label>
-            Comment section:
-            <textarea
-              name="content"
-              id="content"
-              placeholder="Leave a comment here..."
-              required
-              rows={5}
-            ></textarea>
-          </label>
-          <button>Post</button>
-        </form>
-        <div>
-          {comments.filter((comment) => comment.missionId === mission.flight_number).reverse().map((comment) => (
-            <div className="posted-comments" key={comment.id}>
-              <p>{comment.content}</p>
-              <p className="delete-button" onClick={() => {
-                fetch(`http://localhost:4000/comments/${comment.id}`, {
-                  method: "DELETE"
-                }).then(() => {
-                  fetch(`http://localhost:4000/comments/`)
-                  .then((res) => res.json())
-                  .then((data) => {
-                    setComments(data);
-                  })
-                })
-              }}>❌</p>
-            </div>
-          ))}
-        </div>
-      </aside>
+              e.target.reset();
+            }}
+          >
+            <h2>Leave a Comment</h2>
+            <label>
+              Comment section:
+              <textarea
+                name="content"
+                id="content"
+                placeholder="Leave a comment here..."
+                required
+                rows={5}
+              ></textarea>
+            </label>
+            <button>Post</button>
+          </form>
+          <div>
+            {comments
+              .filter((comment) => comment.missionId === mission.flight_number)
+              .reverse()
+              .map((comment) => (
+                <div className="posted-comments" key={comment.id}>
+                  <p>{comment.content}</p>
+                  <p
+                    className="delete-button"
+                    onClick={() => {
+                      fetch(`http://localhost:4000/comments/${comment.id}`, {
+                        method: "DELETE",
+                      }).then(() => {
+                        fetch(`http://localhost:4000/comments/`)
+                          .then((res) => res.json())
+                          .then((data) => {
+                            setComments(data);
+                          });
+                      });
+                    }}
+                  >
+                    ❌
+                  </p>
+                </div>
+              ))}
+          </div>
+        </aside>
       </section>
-      
     </>
   );
 }

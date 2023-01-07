@@ -32,6 +32,7 @@ main .main-mission-list{
 
 main .main-mission-list .main-mission-list-item{
     border: 1px solid grey;
+    height: 90%;
     padding: 20px;
     display: grid;
     align-content: space-between;
