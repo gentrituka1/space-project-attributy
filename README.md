@@ -24,10 +24,26 @@ or
 ```bash
 ts-node index.ts
 ```
+Caution! If you don't have either ts-node or nodemon, simply install it by simply writing:
+```bash
+npm install -g typescript
+npm install -g ts-node
+```
+and for nodemon:
+```bash
+npm install -g nodemon
+```
+
 As for the frontend part, simply go to the frontend folder and write in the command line:
 ```bash
 npm run dev
 ```
+
+And if you are getting "script" errors or similar, try this:
+- Start a new powershell as an admin
+- Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+
+Then try again.
 
 ## Contributing
 
