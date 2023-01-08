@@ -1,13 +1,20 @@
 .App{
+    display: grid;
+    grid-template: 
+    "header" 60px
+    "main" auto /
+    auto ;
     height: 100vh;
 }
 
 header{
+    grid-area: header;
     display: flex;
     align-items: flex-end;
     padding: 10px;
     gap: 20px;
     border-bottom: 1px solid grey;
+    background-color: lightblue;
 }
 .route-names{
     font-size: 1.5rem;
@@ -20,7 +27,9 @@ header{
 }
 
 main{
+    grid-area: main;
     padding: 20px;
+    background-color: azure;
 }
 
 main .main-mission-list{

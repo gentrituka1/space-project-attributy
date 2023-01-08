@@ -44,6 +44,7 @@ export default function MissionDetails() {
 
   return (
     <>
+    <main>
       <section className="mission-details">
         <img src={mission.links.mission_patch} width="400px" />
         <div className="mission-details-side">
@@ -147,6 +148,7 @@ export default function MissionDetails() {
           </div>
         </aside>
       </section>
+      </main>
     </>
   );
 }
