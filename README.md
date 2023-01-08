@@ -34,16 +34,17 @@ and for nodemon:
 npm install -g nodemon
 ```
 
-As for the frontend part, simply go to the frontend folder and write in the command line:
-```bash
-npm run dev
-```
-
 And if you are getting "script" errors or similar, try this:
 - Start a new powershell as an admin
 - Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
 
 Then try again.
+
+As for the frontend part, simply go to the frontend folder and write in the command line:
+```bash
+npm run dev
+```
+
 
 ## Contributing
 
