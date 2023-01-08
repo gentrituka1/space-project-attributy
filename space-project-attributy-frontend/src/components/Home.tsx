@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Mission } from "../utils/types";
 import { getDate } from "../utils/funcs";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [missions, setMissions] = useState<Mission[]>([]);
